@@ -1,6 +1,3 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # lotterybr
 
 <!-- badges: start -->
@@ -9,7 +6,7 @@
 <!-- badges: end -->
 
 The goal of the package is to provide a function to automatically import
-data from the lotteries of Caixa Econômica Federal into the R
+data from the lotteries of Caixa Econômica Federal into the Python
 environment. Data from the lotteries of Caixa Econômica Federal includes
 information on various games such as Mega-Sena, Lotofácil, Quina, among
 others. They are downloaded from the official website of the Federal
@@ -20,7 +17,7 @@ Savings Bank at <https://loterias.caixa.gov.br/>.
 You can install the development version of lotterybr like so:
 
 ``` python
-pip install lotterybt
+pip install lotterybr
 ```
 
 ## Example
