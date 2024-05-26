@@ -6,9 +6,9 @@
 <!-- badges: end -->
 
 The goal of the package is to provide a function to automatically import
-data from the lotteries of Caixa Econômica Federal into the Python
-environment. Data from the lotteries of Caixa Econômica Federal includes
-information on various games such as Mega-Sena, Lotofácil, Quina, among
+data from the lotteries of Caixa Economica Federal into the Python
+environment. Data from the lotteries of Caixa Economica Federal includes
+information on various games such as Mega-Sena, Lotofacil, Quina, among
 others. They are downloaded from the official website of the Federal
 Savings Bank at <https://loterias.caixa.gov.br/>.
 
