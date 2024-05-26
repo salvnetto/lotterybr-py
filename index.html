@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lotterybr &#8212; lotterybr 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="lotterybr">
+<h1>lotterybr<a class="headerlink" href="#lotterybr" title="Permalink to this headline">¶</a></h1>
+<p>The goal of the package is to provide a function to automatically import data from the lotteries of Caixa Economica Federal into the Python environment. Data from the lotteries of Caixa Economica Federal includes information on various games such as Mega-Sena, Lotofacil, Quina, among others. They are downloaded from the official website of the Federal Savings Bank at &lt;<a class="reference external" href="https://loterias.caixa.gov.br/">https://loterias.caixa.gov.br/</a>&gt;.</p>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>You can install the development version of lotterybr like so:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install lotterybr
+</pre></div>
+</div>
+</div>
+<div class="section" id="example">
+<h1>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h1>
+<p>Downloading Lotofacil winners data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lotterybr</span> <span class="kn">import</span> <span class="n">get_data</span>
+
+<span class="n">lotofacil</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">game</span><span class="o">=</span><span class="s2">&quot;lotofacil&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;winners&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-data">
+<h1>get_data<a class="headerlink" href="#get-data" title="Permalink to this headline">¶</a></h1>
+<p>The function can be used in the following way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">quina_ganhadores</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="s2">&quot;quina&quot;</span><span class="p">,</span> <span class="s2">&quot;winners&quot;</span><span class="p">)</span>
+<span class="n">lotofacil_dezenas</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="s2">&quot;lotofacil&quot;</span><span class="p">,</span> <span class="s2">&quot;numbers&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="format">
+<h1>Format<a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h1>
+<p>Each game has two datasets, numbers and winners, with the following columns:</p>
+<p><strong>numbers</strong></p>
+<ul class="simple">
+<li><p><strong>date</strong>: Date type, the date that the game occurred.</p></li>
+<li><p><strong>course</strong>: Integer type, which course the game took place.</p></li>
+<li><p><strong>accumulated</strong>: Char type, if the game prize is accumulated “yes” or not “no”.</p></li>
+<li><p><strong>numbers</strong>: Factor type with 60 levels, the drawn numbers.</p></li>
+</ul>
+<p><strong>winners</strong></p>
+<ul class="simple">
+<li><p><strong>date</strong>: Date type, the date that the game occurred.</p></li>
+<li><p><strong>course</strong>: Integer type, which course the game took place.</p></li>
+<li><p><strong>accumulated</strong>: Char type, if the game prize is accumulated “yes” or not “no”.</p></li>
+<li><p><strong>match</strong>: Char type, the possible match.</p></li>
+<li><p><strong>winners</strong>: Integer type, the number of winners of each possible match.</p></li>
+<li><p><strong>prize</strong>: Integer type, the prize for each type.</p></li>
+</ul>
+<p>Some games, like “duplasena” or “diadesorte”, may contain additional columns since each game has a different way of drawing numbers. Therefore, a brief explanation of each game is as follows:</p>
+</div>
+<div class="section" id="game-descriptions">
+<h1>Game Descriptions<a class="headerlink" href="#game-descriptions" title="Permalink to this headline">¶</a></h1>
+<p><strong>maismilionaria</strong></p>
+<p>Maismilionaria involves selecting five numbers from one pool and one additional number from another pool, with the potential to win multimillion-dollar jackpots.</p>
+<p><strong>megasena</strong></p>
+<p>Six numbers are drawn from a pool of 60, with players aiming to match as many as possible for substantial prizes.</p>
+<p><strong>lotofacil</strong></p>
+<p>Lotofacil involves picking 15 numbers from a pool of 25, with prizes awarded for varying levels of matches.</p>
+<p><strong>quina</strong></p>
+<p>Players select five numbers from a pool of 80, aiming to match as many as possible for prizes.</p>
+<p><strong>lotomania</strong></p>
+<p>Lotomania involves selecting 50 numbers from a pool of 100, with prizes awarded for matching a certain number of drawn numbers.</p>
+<p><strong>duplasena</strong></p>
+<p>Dupla-Sena involves two separate draws, each with six numbers drawn from a pool of 50, offering double the chances to win.</p>
+<p><strong>diadesorte</strong></p>
+<p>In Dia de Sorte, players choose seven numbers and a month, with prizes awarded for matching numbers and/or the month drawn.</p>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">lotterybr</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, Salvador Netto, Tomas Bernardes, Fabio Demarqui.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
