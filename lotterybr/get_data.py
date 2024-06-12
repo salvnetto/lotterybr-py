@@ -7,6 +7,7 @@ import pyreadr
 
 Games = Literal["maismilionaria", "megasena", "lotofacil", "quina", "lotomania", "duplasena", "diadesorte"]
 Types = Literal["numbers", "winners"]
+Languages = Literal["eng", "ptbr"]
 
 class InvalidGameError(ValueError):
     """Raised when an invalid game is provided."""
@@ -20,7 +21,8 @@ class InvalidTypeError(ValueError):
 
 def get_data(
     game: Games, 
-    type: Types, 
+    type: Types,
+    language: Languages,
 ) -> pd.DataFrame:
     """
     Loads data for the specified lottery game and data type.

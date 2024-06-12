@@ -12,7 +12,6 @@ CLASSIFIERS = [
     "Programming Language :: Python",
     "Topic :: Database",
     "Topic :: Internet"
-
 ]
 
 REQUIREMENTS = [
