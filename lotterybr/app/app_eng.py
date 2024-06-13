@@ -2,8 +2,9 @@ from shiny import App, render, ui, reactive
 from shinywidgets import output_widget, register_widget
 import plotly.express as px
 import pandas as pd
-from lotterybr import get_data
 import numpy as np
+
+from lotterybr import get_data
 
 descriptions = {
     "maismilionaria": "To win in MaisMilionaria, you need to match at least four of the six drawn numbers.",
@@ -16,6 +17,14 @@ descriptions = {
 }
 
 app_ui = ui.page_fluid(
+    ui.tags.style(
+        """
+        .data-table-container {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        """
+    ),
     ui.h2("Lotterybr App"),
     ui.layout_sidebar(
         ui.panel_sidebar(
@@ -35,7 +44,7 @@ app_ui = ui.page_fluid(
             ui.h5("Description: "),
             ui.output_text("dynamic_text"),
             ui.h3("Data Table"),
-            ui.output_table("data_table")
+            ui.div(ui.output_table("data_table"), class_="data-table-container")
         )
     )
 )
@@ -47,7 +56,7 @@ def server(input, output, session):
     def _():
         game = input.jogo()
         tipo = input.tipo()
-        dados = get_data(game, tipo, language= "en")
+        dados = get_data(game, tipo, language= "eng")
 
         if tipo == "numbers":
             if game == "maismilionaria":
