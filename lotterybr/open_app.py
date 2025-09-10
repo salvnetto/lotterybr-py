@@ -1,7 +1,7 @@
 from typing import Literal
 
-from app.app_eng import app as eng
-from app.app_ptbr import app as ptbr
+from .app_ptbr import app_br as ptbr
+from .app_eng import app_en as eng
 
 Languages = Literal["eng", "ptbr"]
 
@@ -46,5 +46,3 @@ def open_app(language = "eng"):
         eng.run()
     elif language == "ptbr":
         ptbr.run()
-
-open_app()

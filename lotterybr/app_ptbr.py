@@ -4,7 +4,7 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 
-from lotterybr import get_data
+from .get_data import get_data
 
 descriptions = {
     'maismilionaria' : "Para ganhar na MaisMilionaria, e necessario acertar pelo menos quatro dos seis numeros sorteados.",
@@ -27,27 +27,46 @@ app_ui = ui.page_fluid(
     ),
     ui.h2("Aplicativo Lotterybr"),
     ui.layout_sidebar(
-        ui.panel_sidebar(
-            ui.input_select("jogo", "Escolha o Jogo:",
-                            {"maismilionaria": "MaisMilionária", "megasena": "Mega-Sena", "lotofacil": "Lotofácil", 
-                             "quina": "Quina", "lotomania": "Lotomania", "duplasena": "Dupla Sena", "diadesorte": "Dia de Sorte"}),
-            ui.input_select("tipo", "Escolha o tipo de dados", {"numbers": "Números", "winners": "Ganhadores"}),
-            ui.input_select("grafico", "Escolha o tipo de gráfico", {"bar_chart": "Gráfico de Barras"}),
+        # Sidebar
+        ui.sidebar(
+            ui.input_select(
+                "jogo", "Escolha o Jogo:",
+                {
+                    "maismilionaria": "MaisMilionária",
+                    "megasena": "Mega-Sena",
+                    "lotofacil": "Lotofácil",
+                    "quina": "Quina",
+                    "lotomania": "Lotomania",
+                    "duplasena": "Dupla Sena",
+                    "diadesorte": "Dia de Sorte"
+                }
+            ),
+            ui.input_select(
+                "tipo", "Escolha o tipo de dados",
+                {"numbers": "Números", "winners": "Ganhadores"}
+            ),
+            ui.input_select(
+                "grafico", "Escolha o tipo de gráfico",
+                {"bar_chart": "Gráfico de Barras"}
+            ),
             ui.panel_conditional(
                 "input.tipo == 'winners'",
                 ui.input_checkbox("log_scale", "Usar escala logarítmica", False)
             ),
             ui.output_text_verbatim("summary_table")
         ),
-        ui.panel_main(
-            output_widget("plot"),
-            ui.h5("Descrição: "),
-            ui.output_text("dynamic_text"),
-            ui.h3("Tabela de Dados"),
-            ui.div(ui.output_table("data_table"), class_="data-table-container")
+        # Conteúdo principal
+        output_widget("plot"),
+        ui.h5("Descrição:"),
+        ui.output_text("dynamic_text"),
+        ui.h3("Tabela de Dados"),
+        ui.div(
+            ui.output_table("data_table"),
+            class_="data-table-container"
         )
     )
 )
+
 
 def server(input, output, session):
 
@@ -96,4 +115,4 @@ def server(input, output, session):
         dados = get_data(game, tipo, language="eng")
         return pd.DataFrame(dados).describe().to_string()
 
-app = App(app_ui, server)
+app_br = App(app_ui, server)

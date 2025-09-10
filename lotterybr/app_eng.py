@@ -4,7 +4,7 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 
-from lotterybr import get_data
+from .get_data import get_data
 
 descriptions = {
     "maismilionaria": "To win in MaisMilionaria, you need to match at least four of the six drawn numbers.",
@@ -27,27 +27,46 @@ app_ui = ui.page_fluid(
     ),
     ui.h2("Lotterybr App"),
     ui.layout_sidebar(
-        ui.panel_sidebar(
-            ui.input_select("jogo", "Choose Game:",
-                            {"maismilionaria": "MaisMilionaria", "megasena": "Mega-Sena", "lotofacil": "LotoFacil", 
-                             "quina": "Quina", "lotomania": "LotoMania", "duplasena": "Dupla Sena", "diadesorte": "Dia de Sorte"}),
-            ui.input_select("tipo", "Choose data type", {"numbers": "Numbers", "winners": "Winners"}),
-            ui.input_select("grafico", "Choose graph type", {"bar_chart": "Bar Chart"}),
+        # Sidebar correto
+        ui.sidebar(
+            ui.input_select(
+                "jogo", "Choose Game:",
+                {
+                    "maismilionaria": "MaisMilionaria",
+                    "megasena": "Mega-Sena",
+                    "lotofacil": "LotoFacil",
+                    "quina": "Quina",
+                    "lotomania": "LotoMania",
+                    "duplasena": "Dupla Sena",
+                    "diadesorte": "Dia de Sorte"
+                }
+            ),
+            ui.input_select(
+                "tipo", "Choose data type",
+                {"numbers": "Numbers", "winners": "Winners"}
+            ),
+            ui.input_select(
+                "grafico", "Choose graph type",
+                {"bar_chart": "Bar Chart"}
+            ),
             ui.panel_conditional(
                 "input.tipo == 'winners'",
                 ui.input_checkbox("log_scale", "Use log scale", False)
             ),
             ui.output_text_verbatim("summary_table")
         ),
-        ui.panel_main(
-            output_widget("plot"),
-            ui.h5("Description: "),
-            ui.output_text("dynamic_text"),
-            ui.h3("Data Table"),
-            ui.div(ui.output_table("data_table"), class_="data-table-container")
+        # Conteúdo principal direto
+        output_widget("plot"),
+        ui.h5("Description:"),
+        ui.output_text("dynamic_text"),
+        ui.h3("Data Table"),
+        ui.div(
+            ui.output_table("data_table"),
+            class_="data-table-container"
         )
     )
 )
+
 
 def server(input, output, session):
 
@@ -96,4 +115,4 @@ def server(input, output, session):
         dados = get_data(game, tipo, language="eng")
         return pd.DataFrame(dados).describe().to_string()
 
-app = App(app_ui, server)
+app_en = App(app_ui, server)
